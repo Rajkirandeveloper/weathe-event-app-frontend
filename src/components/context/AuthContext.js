@@ -19,7 +19,7 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   const login = async (username, password) => {
-    const response = await axios.post('http://localhost:5000/auth/login', { username, password });
+    const response = await axios.post('https://events-app-beckend-1.onrender.com/auth/login', { username, password });
     setUser(response.data);
     const {token}=response.data
     console.log(response.data.token)
@@ -27,11 +27,11 @@ export const AuthProvider = ({ children }) => {
   };
 
   const register = async (username, password) => {
-    await axios.post('http://localhost:5000/auth/register', { username, password });
+    await axios.post('https://events-app-beckend-1.onrender.com/auth/register', { username, password });
   };
 
   const logout = async () => {
-    await axios.post('/auth/logout');
+    await axios.post('https://events-app-beckend-1.onrender.com/auth/logout');
     setUser(null);
   };
 

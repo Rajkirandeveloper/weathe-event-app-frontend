@@ -8,7 +8,7 @@ export const SessionProvider = ({ children }) => {
 
   const fetchSessions = async () => {
     const token = localStorage.getItem('token');
-    const response = await axios.get('http://localhost:5000/sessions',{
+    const response = await axios.get('https://events-app-beckend-1.onrender.com/sessions',{
       headers: {
         Authorization: `Bearer ${token}`,
       }});

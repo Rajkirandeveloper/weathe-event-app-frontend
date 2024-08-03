@@ -1,118 +1,73 @@
-
-import { Search, MapPin, Wind } from "react-feather";
-import getWeather from "./getWeather";
-import { useState } from "react";
-// import dateFormat from "dateformat";
+import React, { useState } from 'react';
+import { Search, MapPin, Wind } from 'react-feather';
+import getWeather from './getWeather';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function Weather() {
-  const [city, setCity] = useState("");
+  const [city, setCity] = useState('');
   const [weather, setWeather] = useState({});
 
   const getWeatherbyCity = async () => {
     const weatherData = await getWeather(city);
     setWeather(weatherData);
-    setCity("");
+    setCity('');
   };
 
- 
-
   return (
-    <div className="app">
-      <h1>Weather App</h1>
-      <div className="input-wrapper">
-        <input
-          type="text"
-          value={city}
-          onChange={(e) => setCity(e.target.value)}
-          placeholder="Enter City Name"
-        />
-        <button
-          style={{ background: "#7406a4" }}
-          onClick={() => getWeatherbyCity()}
-        >
-          <Search></Search>
-        </button>
+    <div className="container mt-5">
+      <h1 className="text-center mb-4">Weather App</h1>
+      <div className="d-flex justify-content-center mb-4">
+        <div className="input-group">
+          <input
+            type="text"
+            className="form-control"
+            value={city}
+            onChange={(e) => setCity(e.target.value)}
+            placeholder="Enter City Name"
+          />
+          <button
+            className="btn btn-primary"
+            onClick={() => getWeatherbyCity()}
+          >
+            <Search />
+          </button>
+        </div>
       </div>
 
-      {weather && weather.weather && (
-        <div className="content">
-          <div className="location d-flex">
-            <MapPin></MapPin>
-            <h2>
-              {weather.name} <span>({weather.sys.country})</span>
-            </h2>
-          </div>
-          
+      {weather && weather.weather ? (
+        <div className="card p-4">
+          <div className="card-body">
+            <div className="d-flex align-items-center mb-3">
+              <MapPin size={24} />
+              <h2 className="ms-2">
+                {weather.name} <small className="text-muted">({weather.sys.country})</small>
+              </h2>
+            </div>
 
-          <div className="weatherdesc d-flex flex-c">
-            
-          </div>
+            <div className="d-flex flex-column align-items-center mb-3">
+              <h1 className="display-4">
+                {weather.main.temp} <span>&deg;C</span>
+              </h1>
+              <h3>
+                Feels Like {weather.main.feels_like} <span>&deg;C</span>
+              </h3>
+            </div>
 
-          <div className="tempstats d-flex flex-c">
-            <h1>
-              {weather.main.temp} <span>&deg;C</span>
-            </h1>
-            <h3>
-              Feels Like {weather.main.feels_like} <span>&deg;C</span>
-            </h3>
-          </div>
-
-          <div className="windstats d-flex">
-            <Wind></Wind>
-            <h3>
-              Wind is {weather.wind.speed} Knots in {weather.wind.deg}&deg;
-            </h3>
+            <div className="d-flex align-items-center">
+              <Wind size={24} />
+              <h3 className="ms-2">
+                Wind is {weather.wind.speed} Knots in {weather.wind.deg}&deg;
+              </h3>
+            </div>
           </div>
         </div>
-      )}
-      {!weather.weather && (
-        <div className="content">
-          <h4>No Data found !</h4>
+      ) : (
+        <div className="text-center mt-4">
+          <h4>No Data found!</h4>
         </div>
       )}
     </div>
   );
 }
 
-export default Weather
-
-
-
-
-// import React, { useState } from 'react';
-// import axios from 'axios';
-
-// const Weather = () => {
-//   const [location, setLocation] = useState('');
-//   const [weather, setWeather] = useState(null);
-
-//   const fetchWeather = async (location) => {
-//     const response = await axios.get(`/weather/${location}`);
-//     setWeather(response.data);
-//   };
-
-//   const handleSubmit = (e) => {
-//     e.preventDefault();
-//     fetchWeather(location);
-//   };
-
-//   return (
-//     <div>
-//       <h2>Weather Information</h2>
-//       <form onSubmit={handleSubmit}>
-//         <label>Location:</label>
-//         <input type="text" value={location} onChange={(e) => setLocation(e.target.value)} required />
-//         <button type="submit">Fetch Weather</button>
-//       </form>
-//       {weather && (
-//         <div>
-//           <h3>Weather in {location}</h3>
-//           <p>Temperature: {weather.temperature}</p>
-//           <p>Description: {weather.description}</p>
-//         </div>
-//       )}
-//     </div>
-//   );
-// };
-
-// export default Weather;
+export default Weather;

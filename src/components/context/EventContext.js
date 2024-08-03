@@ -9,7 +9,7 @@ export const EventProvider = ({ children }) => {
   const fetchEvents = async () => {
     const token = localStorage.getItem('token');
     try {
-      const response = await axios.get('http://localhost:5000/events', {
+      const response = await axios.get('https://events-app-beckend-1.onrender.com/events', {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -23,7 +23,7 @@ export const EventProvider = ({ children }) => {
 
   const createEvent = async (eventData) => {
     const token = localStorage.getItem('token');
-    const response = await axios.post('http://localhost:5000/events', eventData, {
+    const response = await axios.post('https://events-app-beckend-1.onrender.com/events', eventData, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -34,7 +34,7 @@ export const EventProvider = ({ children }) => {
 
   const updateEvent = async (id, eventData) => {
     const token = localStorage.getItem('token');
-    const response = await axios.put(`http://localhost:5000/events/${id}`, eventData, {
+    const response = await axios.put(`https://events-app-beckend-1.onrender.com/events/${id}`, eventData, {
       headers: {
         Authorization: `Bearer ${token}`,
       }});
@@ -43,7 +43,7 @@ export const EventProvider = ({ children }) => {
 
   const deleteEvent = async (id) => {
     const token = localStorage.getItem('token');
-    await axios.delete(`http://localhost:5000/events/${id}`, {
+    await axios.delete(`https://events-app-beckend-1.onrender.com/events/${id}`, {
       headers: {
         Authorization: `Bearer ${token}`,
       }});
